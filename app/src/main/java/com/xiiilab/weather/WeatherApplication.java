@@ -12,6 +12,7 @@ public class WeatherApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        WeatherVmFactory.init(this, new Repository());
+        Repository.init(this);
+        WeatherVmFactory.init(this, Repository.getInstance());
     }
 }

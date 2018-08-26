@@ -17,6 +17,8 @@ public class CitySpinnerBinding {
     @SuppressWarnings("unchecked")
     public static void setCity(Spinner spinner, String cityId) {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
+        if (adapter == null)
+            return;
         int position = adapter.getPosition(cityId);
         if (position != -1)
             spinner.setSelection(position, false);
