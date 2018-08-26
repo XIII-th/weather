@@ -5,6 +5,8 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Query;
 import com.xiiilab.weather.CitySize;
 
+import java.util.List;
+
 /**
  * Created by XIII-th on 26.08.2018
  */
@@ -16,4 +18,7 @@ public interface CityDao {
 
     @Query("SELECT name FROM cities")
     LiveData<String[]> getNames();
+
+    @Query("SELECT * FROM cities")
+    LiveData<List<CityEntity>> getCities();
 }

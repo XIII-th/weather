@@ -4,6 +4,7 @@
 
     <application
             android:name=".WeatherApplication"
+            android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,6 +18,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+                android:name=".CityListActivity"
+                android:label="@string/title_activity_city_list"
+                android:parentActivityName=".WeatherActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.xiiilab.weather.WeatherActivity"/>
         </activity>
     </application>
 

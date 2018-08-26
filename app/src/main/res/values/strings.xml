@@ -6,7 +6,7 @@
     <string name="loading">Loading…</string>
     <string name="temperature">Temperature:</string>
     <string name="city_size">City size:</string>
-    
+
     <!-- Seasons -->
     <array name="seasons">
         <item name="winter">Winter</item>
@@ -14,9 +14,12 @@
         <item name="summer">Summer</item>
         <item name="autumn">Autumn</item>
     </array>
-    
+
     <!-- City types -->
     <string name="small">Small</string>
     <string name="middle">Middle</string>
     <string name="big">Big</string>
+
+    <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_city_list">CityListActivity</string>
 </resources>

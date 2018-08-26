@@ -31,7 +31,7 @@ public class WeatherVm extends ViewModel implements IRepositoryAware {
     }
 
     public LiveData<String[]> getCities() {
-        return mRepository.getCitiesList();
+        return mRepository.getCitiesNames();
     }
 
     public void setSelectedCity(String cityId) {

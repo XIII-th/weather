@@ -6,6 +6,8 @@ import android.content.Context;
 import com.xiiilab.weather.CitySize;
 import com.xiiilab.weather.Season;
 
+import java.util.List;
+
 /**
  * Created by XIII-th on 24.08.2018
  */
@@ -37,7 +39,11 @@ public class Repository {
         return mDatabase.getMonthDao().getSeasonTemperatures(cityId, season.months);
     }
 
-    public LiveData<String[]> getCitiesList() {
+    public LiveData<List<CityEntity>> getCitiesList() {
+        return mDatabase.getCityDao().getCities();
+    }
+
+    public LiveData<String[]> getCitiesNames() {
         return mDatabase.getCityDao().getNames();
     }
 }
