@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="title_activity_weather">WeatherActivity</string>
+    <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_city_list">CityListActivity</string>
     <string name="city">City</string>
     <string name="season">Season</string>
     <string name="loading">Loading…</string>
     <string name="temperature">Temperature:</string>
     <string name="city_size">City size:</string>
+    <string name="city_name">City name</string>
+
 
     <!-- Seasons -->
     <array name="seasons">
@@ -15,11 +19,26 @@
         <item name="autumn">Autumn</item>
     </array>
 
-    <!-- City types -->
-    <string name="small">Small</string>
-    <string name="middle">Middle</string>
-    <string name="big">Big</string>
+    <!-- Months -->
+    <array name="months">
+        <item name="january">January</item>
+        <item name="february">February</item>
+        <item name="march">March</item>
+        <item name="april">April</item>
+        <item name="may">May</item>
+        <item name="june">June</item>
+        <item name="jule">Jule</item>
+        <item name="august">August</item>
+        <item name="september">September</item>
+        <item name="october">October</item>
+        <item name="november">November</item>
+        <item name="december">December</item>
+    </array>
 
-    <string name="title_activity_edit">EditActivity</string>
-    <string name="title_activity_city_list">CityListActivity</string>
+    <!-- City types -->
+    <array name="city_types">
+        <item name="small">Small</item>
+        <item name="middle">Middle</item>
+        <item name="big">Big</item>
+    </array>
 </resources>

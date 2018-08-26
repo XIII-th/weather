@@ -1,14 +1,16 @@
 package com.xiiilab.weather.vm;
 
-import android.arch.lifecycle.*;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import com.xiiilab.weather.CitySize;
 import com.xiiilab.weather.Season;
-import com.xiiilab.weather.persistance.Repository;
 
 /**
  * Created by XIII-th on 24.08.2018
  */
-public class WeatherVm extends ViewModel implements IRepositoryAware {
+public class WeatherVm extends RepositoryVm {
 
     // master
     private final MutableLiveData<String> mSelectedCity;
@@ -16,8 +18,6 @@ public class WeatherVm extends ViewModel implements IRepositoryAware {
     // detail
     private final LiveData<CitySize> mCitySize;
     private final LiveData<String> mMeanTemp;
-
-    private Repository mRepository;
 
     public WeatherVm() {
         mSelectedCity = new MutableLiveData<>();
@@ -31,7 +31,7 @@ public class WeatherVm extends ViewModel implements IRepositoryAware {
     }
 
     public LiveData<String[]> getCities() {
-        return mRepository.getCitiesNames();
+        return getRepository().getCitiesNames();
     }
 
     public void setSelectedCity(String cityId) {
@@ -59,21 +59,16 @@ public class WeatherVm extends ViewModel implements IRepositoryAware {
         return mCitySize;
     }
 
-    @Override
-    public void setRepository(Repository repository) {
-        mRepository = repository;
-    }
-
     private LiveData<CitySize> loadCitySize(String cityId) {
-        return mRepository.getCitySize(cityId);
+        return getRepository().getCitySize(cityId);
     }
 
     private LiveData<float[]> onCityChanged(String cityId) {
-        return mRepository.getSeasonTemperature(cityId, mSelectedSeason.getValue());
+        return getRepository().getSeasonTemperature(cityId, mSelectedSeason.getValue());
     }
 
     private LiveData<float[]> onSeasonChanged(Season season) {
-        return mRepository.getSeasonTemperature(mSelectedCity.getValue(), season);
+        return getRepository().getSeasonTemperature(mSelectedCity.getValue(), season);
     }
 
     private String meanTemperature(float[] temperature) {

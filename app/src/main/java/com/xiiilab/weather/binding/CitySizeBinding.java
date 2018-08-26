@@ -12,6 +12,11 @@ public class CitySizeBinding {
 
     @BindingAdapter("android:text")
     public static void getCitySizeLabel(TextView textView, CitySize citySize) {
-        textView.setText(citySize == null ? R.string.loading : citySize.labelId);
+        if (citySize == null)
+            textView.setText(R.string.loading);
+        else {
+            String[] types = textView.getResources().getStringArray(R.array.city_types);
+            textView.setText(types[citySize.ordinal()]);
+        }
     }
 }

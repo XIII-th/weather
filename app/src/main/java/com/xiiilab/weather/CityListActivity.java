@@ -1,6 +1,7 @@
 package com.xiiilab.weather;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,11 +33,13 @@ public class CityListActivity extends AppCompatActivity implements CityListAdapt
 
     public void onCityItemClicked(View view) {
         String cityName = (String) view.getTag();
-        throw new UnsupportedOperationException("Not implemented yet " + cityName);
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra(EditActivity.EDIT_CITY, cityName);
+        startActivity(intent);
     }
 
     public void onCityAddButtonClicked(View view) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        startActivity(new Intent(this, EditActivity.class));
     }
 
     @Override

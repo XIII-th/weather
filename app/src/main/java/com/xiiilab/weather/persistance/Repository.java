@@ -46,4 +46,12 @@ public class Repository {
     public LiveData<String[]> getCitiesNames() {
         return mDatabase.getCityDao().getNames();
     }
+
+    public void deleteCity(CityEntity city) {
+        mDatabase.getCityDao().delete(city);
+    }
+
+    public LiveData<CityEntity> getCity(String cityId) {
+        return mDatabase.getCityDao().getCity(cityId);
+    }
 }
