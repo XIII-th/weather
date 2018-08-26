@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="title_activity_weather">WeatherActivity</string>
+    <string name="city">City</string>
+    <string name="season">Season</string>
+    <string name="loading">Loading…</string>
+    <string name="temperature">Temperature:</string>
+    <string name="city_size">City size:</string>
+    
+    <!-- Seasons -->
+    <array name="seasons">
+        <item name="winter">Winter</item>
+        <item name="spring">Spring</item>
+        <item name="summer">Summer</item>
+        <item name="autumn">Autumn</item>
+    </array>
+    
+    <!-- City types -->
+    <string name="small">Small</string>
+    <string name="middle">Middle</string>
+    <string name="big">Big</string>
+</resources>
