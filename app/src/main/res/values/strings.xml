@@ -16,6 +16,7 @@
     <string name="action_kelvin">Kelvin</string>
     <string name="unexpected_high_temperature">Unexpected high temperature</string>
     <string name="unexpected_low_temperature">Unexpected low temperature</string>
+    <string name="mean_temperature_is" formatted="true">Mean temperature is: %s</string>
 
 
     <!-- Seasons -->

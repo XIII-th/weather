@@ -44,6 +44,7 @@ public class MonthEditVm extends AndroidViewModel implements IRepositoryAware {
 
     public void setMonth(String cityId, Month month) {
         mMonth = month;
+        // TODO: 27.08.2018 implement more robust solution for two way data binding with liveData temperature
         LiveData<Float> monthTemperature = mRepository.getMonthTemperature(cityId, mMonth);
         monthTemperature.observeForever(new Observer<Float>() {
             @Override

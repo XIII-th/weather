@@ -4,7 +4,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,17 +18,20 @@ import com.xiiilab.weather.vm.WeatherVmFactory;
 
 public class WeatherActivity extends AppCompatActivity {
 
+    private ActivityWeatherBinding mBinding;
     private WeatherVm mWeatherVm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityWeatherBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_weather);
-        setSupportActionBar(binding.toolbar);
-        binding.setLifecycleOwner(this);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_weather);
+        setSupportActionBar(mBinding.toolbar);
+        mBinding.setLifecycleOwner(this);
         mWeatherVm = ViewModelProviders.of(this, WeatherVmFactory.getInstance()).get(WeatherVm.class);
         mWeatherVm.setTemperatureRepresentation(TemperatureRepresentation.CELSIUS);
-        binding.setWeatherVm(mWeatherVm);
+        mBinding.setWeatherVm(mWeatherVm);
+
+        mWeatherVm.getMeanTemp().observe(this, this::onMeanTemperatureChanged);
     }
 
     public void onCityListButtonClicked(View view) {
@@ -56,5 +61,11 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         mWeatherVm.setTemperatureRepresentation(representation);
+    }
+
+    private void onMeanTemperatureChanged(String meanTemperature) {
+        String message = getString(R.string.mean_temperature_is, meanTemperature);
+        Log.d("MEAN_TEMPERATURE", message);
+        Snackbar.make(mBinding.coordinator, message, Snackbar.LENGTH_SHORT).show();
     }
 }
