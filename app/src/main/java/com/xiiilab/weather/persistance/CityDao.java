@@ -12,18 +12,18 @@ import java.util.List;
 @Dao
 public interface CityDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(CityEntity city);
+
+    @Delete
+    void delete(CityEntity city);
+
     @Query("SELECT size FROM cities WHERE name = :cityId")
     LiveData<CitySize> getSize(String cityId);
 
     @Query("SELECT * FROM cities")
     LiveData<List<CityEntity>> getCities();
 
-    @Delete
-    void delete(CityEntity city);
-
     @Query("SELECT * FROM cities WHERE name = :cityId")
     LiveData<CityEntity> getCity(String cityId);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(CityEntity city);
 }

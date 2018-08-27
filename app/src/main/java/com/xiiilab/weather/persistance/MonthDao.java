@@ -13,11 +13,11 @@ import com.xiiilab.weather.Month;
 @Dao
 public interface MonthDao {
 
-    @Query("SELECT temperature FROM months WHERE city = :cityId AND month IN (:months)")
-    LiveData<float[]> getSeasonTemperatures(String cityId, Month... months);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MonthEntity month);
+
+    @Query("SELECT temperature FROM months WHERE city = :cityId AND month IN (:months)")
+    LiveData<float[]> getSeasonTemperatures(String cityId, Month... months);
 
     @Query("SELECT temperature FROM months WHERE city = :cityId AND month = :month")
     LiveData<Float> getTemperature(String cityId, Month month);

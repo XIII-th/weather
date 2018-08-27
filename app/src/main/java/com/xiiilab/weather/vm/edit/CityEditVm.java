@@ -12,7 +12,6 @@ import com.xiiilab.weather.persistance.CityEntity;
 import com.xiiilab.weather.persistance.MonthEntity;
 import com.xiiilab.weather.persistance.Repository;
 import com.xiiilab.weather.vm.IRepositoryAware;
-import com.xiiilab.weather.vm.MonthEditVm;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,7 +16,7 @@ import com.xiiilab.weather.list.MonthAdapter;
 import com.xiiilab.weather.list.VmSupplier;
 import com.xiiilab.weather.persistance.CityEntity;
 import com.xiiilab.weather.persistance.Repository;
-import com.xiiilab.weather.vm.MonthEditVm;
+import com.xiiilab.weather.vm.edit.MonthEditVm;
 import com.xiiilab.weather.vm.WeatherVmFactory;
 import com.xiiilab.weather.vm.edit.CityEditVm;
 

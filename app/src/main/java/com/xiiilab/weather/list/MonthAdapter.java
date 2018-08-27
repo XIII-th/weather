@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.xiiilab.weather.Month;
 import com.xiiilab.weather.R;
 import com.xiiilab.weather.databinding.MonthEditItemBinding;
-import com.xiiilab.weather.vm.MonthEditVm;
+import com.xiiilab.weather.vm.edit.MonthEditVm;
 
 /**
  * Created by XIII-th on 27.08.2018

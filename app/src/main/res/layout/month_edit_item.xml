@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
                 name="monthEditVm"
-                type="com.xiiilab.weather.vm.MonthEditVm"/>
+                type="com.xiiilab.weather.vm.edit.MonthEditVm"/>
     </data>
 
     <android.support.v7.widget.CardView

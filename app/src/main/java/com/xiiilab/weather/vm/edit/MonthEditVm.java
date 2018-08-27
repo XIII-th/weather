@@ -1,4 +1,4 @@
-package com.xiiilab.weather.vm;
+package com.xiiilab.weather.vm.edit;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -11,6 +11,7 @@ import android.support.annotation.WorkerThread;
 import com.xiiilab.weather.Month;
 import com.xiiilab.weather.R;
 import com.xiiilab.weather.persistance.Repository;
+import com.xiiilab.weather.vm.IRepositoryAware;
 
 /**
  * Created by XIII-th on 27.08.2018
