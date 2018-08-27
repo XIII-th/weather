@@ -10,6 +10,10 @@ import com.xiiilab.weather.R;
 import com.xiiilab.weather.persistance.CityEntity;
 import com.xiiilab.weather.persistance.Repository;
 import com.xiiilab.weather.vm.IRepositoryAware;
+import com.xiiilab.weather.vm.MonthEditVm;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by XIII-th on 27.08.2018
@@ -17,6 +21,7 @@ import com.xiiilab.weather.vm.IRepositoryAware;
 public class CityEditVm extends AndroidViewModel implements IRepositoryAware {
 
     private final MutableLiveData<String> mNameError;
+    private final List<MonthEditVm> mMonthEditVmList;
 
     private Repository mRepository;
     private CityEntity mCityEntity;
@@ -25,6 +30,7 @@ public class CityEditVm extends AndroidViewModel implements IRepositoryAware {
     public CityEditVm(Application application) {
         super(application);
         mNameError = new MutableLiveData<>();
+        mMonthEditVmList = new ArrayList<>();
     }
 
     @Override
@@ -57,6 +63,10 @@ public class CityEditVm extends AndroidViewModel implements IRepositoryAware {
 
     public int getSize() {
         return mCityEntity.getSize().ordinal();
+    }
+
+    public void addMonthVm(MonthEditVm monthEditVm) {
+        mMonthEditVmList.add(monthEditVm);
     }
 
     public LiveData<Boolean> save() {

@@ -6,16 +6,20 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.xiiilab.weather.R;
 import com.xiiilab.weather.databinding.ActivityEditBinding;
+import com.xiiilab.weather.list.MonthAdapter;
+import com.xiiilab.weather.list.VmSupplier;
 import com.xiiilab.weather.persistance.CityEntity;
 import com.xiiilab.weather.persistance.Repository;
+import com.xiiilab.weather.vm.MonthEditVm;
 import com.xiiilab.weather.vm.WeatherVmFactory;
 import com.xiiilab.weather.vm.edit.CityEditVm;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity implements VmSupplier<MonthEditVm> {
 
     public static final String EDIT_CITY = "com.xiiilab.weather.EditActivity_EDIT_CITY";
     private CityEditVm mEditVm;
@@ -43,6 +47,9 @@ public class EditActivity extends AppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null)
             supportActionBar.setDisplayHomeAsUpEnabled(true);
+
+        RecyclerView monthList = findViewById(R.id.months_list);
+        monthList.setAdapter(new MonthAdapter(this));
     }
 
     @Override
@@ -60,5 +67,12 @@ public class EditActivity extends AppCompatActivity {
         if (success)
             // changes successfully applied
             finish();
+    }
+
+    @Override
+    public MonthEditVm get(String key) {
+        MonthEditVm monthEditVm = ViewModelProviders.of(this).get(key, MonthEditVm.class);
+        mEditVm.addMonthVm(monthEditVm);
+        return monthEditVm;
     }
 }

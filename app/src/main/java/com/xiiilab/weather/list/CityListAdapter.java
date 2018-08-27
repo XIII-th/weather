@@ -1,6 +1,5 @@
 package com.xiiilab.weather.list;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -20,10 +19,10 @@ import java.util.List;
  */
 public class CityListAdapter extends RecyclerView.Adapter<CityItemViewHolder> {
 
-    private final VmSupplier mVmSupplier;
+    private final VmSupplier<CityItemVm> mVmSupplier;
     private final List<CityEntity> mCityEntityList;
 
-    public CityListAdapter(VmSupplier vmSupplier, LiveData<List<CityEntity>> cities) {
+    public CityListAdapter(VmSupplier<CityItemVm> vmSupplier, LiveData<List<CityEntity>> cities) {
         mVmSupplier = vmSupplier;
         mCityEntityList = new ArrayList<>();
         cities.observe(vmSupplier, this::update);
@@ -54,10 +53,6 @@ public class CityListAdapter extends RecyclerView.Adapter<CityItemViewHolder> {
         synchronized (mCityEntityList) {
             return mCityEntityList.size();
         }
-    }
-
-    public interface VmSupplier extends LifecycleOwner {
-        CityItemVm get(String key);
     }
 
     private void update(List<CityEntity> cityEntities) {

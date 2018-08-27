@@ -10,11 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.xiiilab.weather.R;
 import com.xiiilab.weather.list.CityListAdapter;
+import com.xiiilab.weather.list.VmSupplier;
 import com.xiiilab.weather.persistance.Repository;
 import com.xiiilab.weather.vm.CityItemVm;
 import com.xiiilab.weather.vm.WeatherVmFactory;
 
-public class CityListActivity extends AppCompatActivity implements CityListAdapter.VmSupplier {
+public class CityListActivity extends AppCompatActivity implements VmSupplier<CityItemVm> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
