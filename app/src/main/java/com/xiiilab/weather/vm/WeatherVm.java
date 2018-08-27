@@ -1,10 +1,10 @@
 package com.xiiilab.weather.vm;
 
 import android.arch.lifecycle.*;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.xiiilab.weather.CitySize;
 import com.xiiilab.weather.Season;
+import com.xiiilab.weather.TemperatureRepresentation;
 import com.xiiilab.weather.persistance.Repository;
 
 /**
@@ -16,21 +16,22 @@ public class WeatherVm extends RepositoryVm {
     private final MutableLiveData<String> mSelectedCity;
     private final MutableLiveData<Season> mSelectedSeason;
     private final MediatorLiveData<String[]> mCitiesNames;
-    private final MediatorLiveData<float[]> mMeanTemperatureMediator;
+    private final MutableLiveData<TemperatureRepresentation> mTemperatureRepresentation;
     // detail
     private final LiveData<CitySize> mCitySize;
-    private final LiveData<String> mMeanTemp;
+    private final MediatorLiveData<String> mMeanTemp;
 
     public WeatherVm() {
         mSelectedCity = new MutableLiveData<>();
         mSelectedSeason = new MutableLiveData<>();
         mCitiesNames = new MediatorLiveData<>();
+        mTemperatureRepresentation = new MutableLiveData<>();
         mCitySize = Transformations.switchMap(mSelectedCity, this::loadCitySize);
         // create mediator to get changes from city and season
-        mMeanTemperatureMediator = new MediatorLiveData<>();
-        mMeanTemperatureMediator.addSource(mSelectedCity, this::onCityChanged);
-        mMeanTemperatureMediator.addSource(mSelectedSeason, this::onSeasonChanged);
-        mMeanTemp = Transformations.map(mMeanTemperatureMediator, this::meanTemperature);
+        mMeanTemp = new MediatorLiveData<>();
+        mMeanTemp.addSource(mSelectedCity, this::onCityChanged);
+        mMeanTemp.addSource(mSelectedSeason, this::onSeasonChanged);
+        mMeanTemp.addSource(mTemperatureRepresentation, this::onRepresentationChanged);
     }
 
     @Override
@@ -46,6 +47,10 @@ public class WeatherVm extends RepositoryVm {
                 mCitiesNames.setValue(names);
             }
         });
+    }
+
+    public void setTemperatureRepresentation(TemperatureRepresentation temperatureRepresentation) {
+        mTemperatureRepresentation.setValue(temperatureRepresentation);
     }
 
     public LiveData<String[]> getCities() {
@@ -82,30 +87,38 @@ public class WeatherVm extends RepositoryVm {
     }
 
     private void onCityChanged(String cityId) {
-        Season season = mSelectedSeason.getValue();
-        if (season != null)
-            loadTemperature(cityId, season);
+        loadTemperature(cityId, mSelectedSeason.getValue());
     }
 
     private void onSeasonChanged(Season season) {
-        String cityId = mSelectedCity.getValue();
-        if (cityId != null)
-            loadTemperature(cityId, season);
+        loadTemperature(mSelectedCity.getValue(), season);
     }
 
-    private void loadTemperature(@NonNull String cityId, @NonNull Season season) {
+    private void onRepresentationChanged(TemperatureRepresentation ignored) {
+        loadTemperature(mSelectedCity.getValue(), mSelectedSeason.getValue());
+    }
+
+    private void loadTemperature(@Nullable String cityId, @Nullable Season season) {
+        if (cityId == null || season == null)
+            return;
         LiveData<float[]> seasonTemperature = getRepository().getSeasonTemperature(cityId, season);
         seasonTemperature.observeForever(new Observer<float[]>() {
             @Override
             public void onChanged(@Nullable float[] temp) {
                 seasonTemperature.removeObserver(this);
-                mMeanTemperatureMediator.setValue(temp);
+                mMeanTemp.setValue(meanTemperature(temp));
             }
         });
     }
 
-    private String meanTemperature(float[] temperature) {
-        // TODO: apply strategy
-        throw new UnsupportedOperationException("Not implemented yet");
+    private String meanTemperature(@Nullable float[] temperature) {
+        if (temperature == null || temperature.length == 0)
+            return null;
+        float sum = 0F;
+        for (float temp : temperature)
+            sum += temp;
+        sum /= temperature.length;
+        TemperatureRepresentation representation = mTemperatureRepresentation.getValue();
+        return representation == null ? String.valueOf(sum) : representation.toString(sum / temperature.length);
     }
 }

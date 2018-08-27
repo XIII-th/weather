@@ -11,6 +11,9 @@
     <string name="city_name">City name</string>
     <string name="action_save">Save</string>
     <string name="name_must_be_not_empty">Name must be not empty</string>
+    <string name="action_celsius">Celsius</string>
+    <string name="action_fahrenheit">Fahrenheit</string>
+    <string name="action_kelvin">Kelvin</string>
 
 
     <!-- Seasons -->

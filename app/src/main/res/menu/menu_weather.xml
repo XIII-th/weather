@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/action_celsius"
+            android:title="@string/action_celsius"
+            android:onClick="onRepresentationChanged"
+            android:orderInCategory="100"/>
+    <item
+            android:id="@+id/action_fahrenheit"
+            android:title="@string/action_fahrenheit"
+            android:onClick="onRepresentationChanged"
+            android:orderInCategory="100"/>
+    <item
+            android:id="@+id/action_kelvin"
+            android:title="@string/action_kelvin"
+            android:onClick="onRepresentationChanged"
+            android:orderInCategory="100"/>
+</menu>
