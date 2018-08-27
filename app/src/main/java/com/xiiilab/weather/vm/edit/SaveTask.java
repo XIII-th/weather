@@ -3,21 +3,17 @@ package com.xiiilab.weather.vm.edit;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
-import com.xiiilab.weather.persistance.CityEntity;
-import com.xiiilab.weather.persistance.Repository;
 
 /**
  * Created by XIII-th on 27.08.2018
  */
-class SaveTask extends AsyncTask<CheckFunction, Void, Boolean> {
+class SaveTask extends AsyncTask<Check, Void, Boolean> {
 
     private final MutableLiveData<Boolean> mResult;
-    private final Repository mRepository;
-    private final CityEntity mCityEntity;
+    private final Runnable mOnSave;
 
-    public SaveTask(Repository repository, CityEntity cityEntity) {
-        mRepository = repository;
-        mCityEntity = cityEntity;
+    public SaveTask(Runnable onSave) {
+        mOnSave = onSave;
         mResult = new MutableLiveData<>();
     }
 
@@ -26,12 +22,12 @@ class SaveTask extends AsyncTask<CheckFunction, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(CheckFunction... checkFunctions) {
+    protected Boolean doInBackground(Check... checks) {
         boolean result = true;
-        for (CheckFunction function : checkFunctions)
-            result &= function.check(mCityEntity);
+        for (Check function : checks)
+            result &= function.check();
         if (result)
-            mRepository.saveCity(mCityEntity);
+            mOnSave.run();
         return result;
     }
 

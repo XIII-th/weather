@@ -14,6 +14,8 @@
     <string name="action_celsius">Celsius</string>
     <string name="action_fahrenheit">Fahrenheit</string>
     <string name="action_kelvin">Kelvin</string>
+    <string name="unexpected_high_temperature">Unexpected high temperature</string>
+    <string name="unexpected_low_temperature">Unexpected low temperature</string>
 
 
     <!-- Seasons -->

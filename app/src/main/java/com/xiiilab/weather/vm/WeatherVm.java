@@ -119,6 +119,6 @@ public class WeatherVm extends RepositoryVm {
             sum += temp;
         sum /= temperature.length;
         TemperatureRepresentation representation = mTemperatureRepresentation.getValue();
-        return representation == null ? String.valueOf(sum) : representation.toString(sum / temperature.length);
+        return representation == null ? String.valueOf(sum) : representation.toString(sum);
     }
 }

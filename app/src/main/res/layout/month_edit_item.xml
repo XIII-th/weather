@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="monthEditVm"
                 type="com.xiiilab.weather.vm.MonthEditVm"/>
@@ -23,12 +24,13 @@
                     android:text="@{monthEditVm.month}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.25"/>
 
             <android.support.design.widget.TextInputEditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
+                    android:inputType="numberSigned"
                     android:maxLength="@integer/number_max_length"
                     android:layout_margin="@dimen/text_margin"
                     android:text="@={monthEditVm.temperature, default = 0.0}"
@@ -36,7 +38,21 @@
                     app:layout_constraintLeft_toRightOf="@id/month_label_tv"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"/>
+                    app:layout_constraintHorizontal_bias="1.0"
+                    android:id="@+id/textInputEditText"
+                    app:layout_constraintVertical_bias="0.0"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@{monthEditVm.error}"
+                    android:textColor="@android:color/holo_red_light"
+                    android:visibility="@{monthEditVm.error == null ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="@+id/month_label_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/textInputEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputEditText"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

@@ -25,5 +25,5 @@ public interface CityDao {
     LiveData<CityEntity> getCity(String cityId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void save(CityEntity city);
+    void insert(CityEntity city);
 }

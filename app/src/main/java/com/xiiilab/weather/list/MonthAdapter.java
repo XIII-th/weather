@@ -15,9 +15,11 @@ import com.xiiilab.weather.vm.MonthEditVm;
  */
 public class MonthAdapter extends RecyclerView.Adapter<MonthEditViewHolder> {
 
+    private final String mCityId;
     private final VmSupplier<MonthEditVm> mVmSupplier;
 
-    public MonthAdapter(VmSupplier<MonthEditVm> vmSupplier) {
+    public MonthAdapter(String cityId, VmSupplier<MonthEditVm> vmSupplier) {
+        mCityId = cityId;
         mVmSupplier = vmSupplier;
     }
 
@@ -34,7 +36,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthEditViewHolder> {
     public void onBindViewHolder(@NonNull MonthEditViewHolder holder, int position) {
         Month month = Month.values()[position];
         MonthEditVm monthEditVm = mVmSupplier.get(month.name());
-        monthEditVm.setMonth(month);
+        monthEditVm.setMonth(mCityId, month);
         holder.binding.setMonthEditVm(monthEditVm);
     }
 

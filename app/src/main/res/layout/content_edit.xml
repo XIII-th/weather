@@ -25,6 +25,7 @@
                 android:layout_margin="@dimen/default_margin"
                 app:counterEnabled="true"
                 app:counterMaxLength="@integer/text_max_length"
+                app:error="@{editVm.nameError}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">

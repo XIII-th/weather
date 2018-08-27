@@ -5,9 +5,11 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 import com.xiiilab.weather.CitySize;
 import com.xiiilab.weather.R;
 import com.xiiilab.weather.persistance.CityEntity;
+import com.xiiilab.weather.persistance.MonthEntity;
 import com.xiiilab.weather.persistance.Repository;
 import com.xiiilab.weather.vm.IRepositoryAware;
 import com.xiiilab.weather.vm.MonthEditVm;
@@ -57,6 +59,10 @@ public class CityEditVm extends AndroidViewModel implements IRepositoryAware {
         return mCityEntity.getName();
     }
 
+    public LiveData<String> getNameError() {
+        return mNameError;
+    }
+
     public void setSize(int index) {
         mCityEntity.setSize(CitySize.values()[index]);
     }
@@ -70,19 +76,34 @@ public class CityEditVm extends AndroidViewModel implements IRepositoryAware {
     }
 
     public LiveData<Boolean> save() {
-        mSaveTask = new SaveTask(mRepository, mCityEntity);
+        mSaveTask = new SaveTask(this::onSave);
         LiveData<Boolean> result = mSaveTask.getResult();
         result.observeForever(ignored -> mSaveTask = null);
-        mSaveTask.execute(this::checkName);
+        Check[] checkList = new Check[mMonthEditVmList.size() + 1];
+        checkList[0] = this::checkName;
+        for (int i = 1; i < checkList.length; i++)
+            checkList[i] = mMonthEditVmList.get(i - 1)::validate;
+        mSaveTask.execute(checkList);
         return result;
     }
 
-    private boolean checkName(CityEntity entity) {
+    @WorkerThread
+    private boolean checkName() {
         mNameError.postValue(null);
-        if (entity.getName().isEmpty()) {
+        if (getName().isEmpty()) {
             mNameError.postValue(getApplication().getString(R.string.name_must_be_not_empty));
             return false;
         }
         return true;
+    }
+
+    @WorkerThread
+    private void onSave() {
+        mRepository.saveCity(mCityEntity);
+        for (MonthEditVm monthEditVm : mMonthEditVmList) {
+            MonthEntity monthEntity = new MonthEntity(
+                    monthEditVm.getMonth(), mCityEntity.getName(), monthEditVm.getTemperature());
+            mRepository.saveMonth(monthEntity);
+        }
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="text_max_length">64</integer>
-    <integer name="number_max_length">5</integer>
+    <integer name="number_max_length">6</integer>
+    <integer name="max_temperature">100</integer>
+    <integer name="min_temperature">-100</integer>
 </resources>

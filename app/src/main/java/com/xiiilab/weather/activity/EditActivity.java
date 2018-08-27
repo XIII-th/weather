@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -23,33 +24,33 @@ public class EditActivity extends AppCompatActivity implements VmSupplier<MonthE
 
     public static final String EDIT_CITY = "com.xiiilab.weather.EditActivity_EDIT_CITY";
     private CityEditVm mEditVm;
+    private ActivityEditBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
+        mBinding.setLifecycleOwner(this);
 
         mEditVm = ViewModelProviders.of(this, WeatherVmFactory.getInstance()).get(CityEditVm.class);
 
+        String cityId = getIntent() == null ? null : getIntent().getStringExtra(EDIT_CITY);
         if (!mEditVm.isInitiated()) {
-            String cityId = getIntent() == null ? null : getIntent().getStringExtra(EDIT_CITY);
-            if (cityId == null)
-                mEditVm.setEntity(null);
-            else {
+            if (cityId == null) {
+                setBindingEntity(null);
+            } else {
                 LiveData<CityEntity> liveData = Repository.getInstance().getCity(cityId);
-                liveData.observe(this, mEditVm::setEntity);
+                liveData.observe(this, this::setBindingEntity);
             }
         }
 
-        ActivityEditBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_edit);
-        binding.setLifecycleOwner(this);
-        binding.setEditVm(mEditVm);
-        setSupportActionBar(binding.toolbar);
+        setSupportActionBar(mBinding.toolbar);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null)
             supportActionBar.setDisplayHomeAsUpEnabled(true);
 
         RecyclerView monthList = findViewById(R.id.months_list);
-        monthList.setAdapter(new MonthAdapter(this));
+        monthList.setAdapter(new MonthAdapter(cityId, this));
     }
 
     @Override
@@ -63,16 +64,21 @@ public class EditActivity extends AppCompatActivity implements VmSupplier<MonthE
         mEditVm.save().observe(this, this::onSaveCompleted);
     }
 
+    @Override
+    public MonthEditVm get(String key) {
+        MonthEditVm monthEditVm = ViewModelProviders.of(this, WeatherVmFactory.getInstance()).get(key, MonthEditVm.class);
+        mEditVm.addMonthVm(monthEditVm);
+        return monthEditVm;
+    }
+
+    private void setBindingEntity(@Nullable CityEntity entity) {
+        mEditVm.setEntity(entity);
+        mBinding.setEditVm(mEditVm);
+    }
+
     private void onSaveCompleted(Boolean success) {
         if (success)
             // changes successfully applied
             finish();
-    }
-
-    @Override
-    public MonthEditVm get(String key) {
-        MonthEditVm monthEditVm = ViewModelProviders.of(this).get(key, MonthEditVm.class);
-        mEditVm.addMonthVm(monthEditVm);
-        return monthEditVm;
     }
 }

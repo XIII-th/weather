@@ -39,6 +39,10 @@ public class CommonBinding {
 
     @InverseBindingAdapter(attribute = "android:text")
     public static float getFloat(TextView textView) {
-        return Float.parseFloat(textView.getText().toString());
+        try {
+            return Float.parseFloat(textView.getText().toString());
+        } catch (NumberFormatException e) {
+            return 0F;
+        }
     }
 }

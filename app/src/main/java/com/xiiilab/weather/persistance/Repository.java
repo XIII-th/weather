@@ -8,6 +8,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.util.Log;
 import com.xiiilab.weather.CitySize;
+import com.xiiilab.weather.Month;
 import com.xiiilab.weather.Season;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class Repository implements LifecycleObserver {
     }
 
     public void saveCity(CityEntity city) {
-        mDatabase.getCityDao().save(city);
+        mDatabase.getCityDao().insert(city);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -79,5 +80,13 @@ public class Repository implements LifecycleObserver {
             // (Re-)Cancel if current thread also interrupted
             mExecutor.shutdownNow();
         }
+    }
+
+    public void saveMonth(MonthEntity month) {
+        mDatabase.getMonthDao().insert(month);
+    }
+
+    public LiveData<Float> getMonthTemperature(String cityId, Month month) {
+        return mDatabase.getMonthDao().getTemperature(cityId, month);
     }
 }
