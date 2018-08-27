@@ -1,6 +1,7 @@
 package com.xiiilab.weather;
 
 import android.app.Application;
+import android.arch.lifecycle.ProcessLifecycleOwner;
 import com.xiiilab.weather.persistance.Repository;
 import com.xiiilab.weather.vm.WeatherVmFactory;
 
@@ -13,6 +14,7 @@ public class WeatherApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Repository.init(this);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(Repository.getInstance());
         WeatherVmFactory.init(this, Repository.getInstance());
     }
 }

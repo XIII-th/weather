@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:showIn="@layout/activity_city_list"
-        tools:context=".CityListActivity"
+        tools:context=".activity.CityListActivity"
         tools:listitem="@layout/list_item">
 
 </android.support.v7.widget.RecyclerView>

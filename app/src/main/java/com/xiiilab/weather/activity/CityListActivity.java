@@ -1,4 +1,4 @@
-package com.xiiilab.weather;
+package com.xiiilab.weather.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -8,14 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import com.xiiilab.weather.R;
 import com.xiiilab.weather.list.CityListAdapter;
 import com.xiiilab.weather.persistance.Repository;
 import com.xiiilab.weather.vm.CityItemVm;
 import com.xiiilab.weather.vm.WeatherVmFactory;
 
 public class CityListActivity extends AppCompatActivity implements CityListAdapter.VmSupplier {
-
-    private byte mVmCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +42,7 @@ public class CityListActivity extends AppCompatActivity implements CityListAdapt
     }
 
     @Override
-    public CityItemVm get() {
-        return ViewModelProviders.
-                of(this, WeatherVmFactory.getInstance()).
-                get(String.valueOf(mVmCounter++), CityItemVm.class);
+    public CityItemVm get(String key) {
+        return ViewModelProviders.of(this, WeatherVmFactory.getInstance()).get(key, CityItemVm.class);
     }
 }

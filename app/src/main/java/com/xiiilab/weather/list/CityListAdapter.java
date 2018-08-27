@@ -35,14 +35,18 @@ public class CityListAdapter extends RecyclerView.Adapter<CityItemViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ListItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.list_item, parent, false);
         binding.setLifecycleOwner(mVmSupplier);
-        return new CityItemViewHolder(binding, mVmSupplier.get());
+        return new CityItemViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CityItemViewHolder holder, int position) {
+        CityEntity entity;
         synchronized (mCityEntityList) {
-            holder.vm.setCity(mCityEntityList.get(position));
+            entity = mCityEntityList.get(position);
         }
+        CityItemVm itemVm = mVmSupplier.get(entity.getName());
+        itemVm.setCity(entity);
+        holder.binding.setItemVm(itemVm);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityItemViewHolder> {
     }
 
     public interface VmSupplier extends LifecycleOwner {
-        CityItemVm get();
+        CityItemVm get(String key);
     }
 
     private void update(List<CityEntity> cityEntities) {

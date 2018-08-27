@@ -10,7 +10,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".WeatherActivity"
+                android:name=".activity.WeatherActivity"
                 android:label="@string/title_activity_weather"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,22 +20,22 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".CityListActivity"
+                android:name=".activity.CityListActivity"
                 android:label="@string/title_activity_city_list"
-                android:parentActivityName=".WeatherActivity"
+                android:parentActivityName=".activity.WeatherActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.xiiilab.weather.WeatherActivity"/>
+                    android:value="com.xiiilab.weather.activity.WeatherActivity"/>
         </activity>
         <activity
-                android:name=".EditActivity"
+                android:name=".activity.EditActivity"
                 android:label="@string/title_activity_edit"
-                android:parentActivityName=".CityListActivity"
+                android:parentActivityName=".activity.CityListActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.xiiilab.weather.CityListActivity"/>
+                    android:value="com.xiiilab.weather.activity.CityListActivity"/>
         </activity>
     </application>
 

@@ -8,13 +8,13 @@
 
         <variable
                 name="editVm"
-                type="com.xiiilab.weather.vm.CityEditVm"/>
+                type="com.xiiilab.weather.vm.edit.CityEditVm"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".EditActivity">
+            tools:context=".activity.EditActivity">
 
         <android.support.design.widget.AppBarLayout
                 android:layout_height="wrap_content"

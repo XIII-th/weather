@@ -5,23 +5,29 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CityListActivity">
+        tools:context=".activity.CityListActivity">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
+    <LinearLayout
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                android:theme="@style/AppTheme.AppBarOverlay">
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-    <include layout="@layout/content_city_list"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_city_list"/>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

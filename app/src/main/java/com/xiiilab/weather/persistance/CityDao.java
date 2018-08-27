@@ -1,9 +1,7 @@
 package com.xiiilab.weather.persistance;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Query;
+import android.arch.persistence.room.*;
 import com.xiiilab.weather.CitySize;
 
 import java.util.List;
@@ -17,9 +15,6 @@ public interface CityDao {
     @Query("SELECT size FROM cities WHERE name = :cityId")
     LiveData<CitySize> getSize(String cityId);
 
-    @Query("SELECT name FROM cities")
-    LiveData<String[]> getNames();
-
     @Query("SELECT * FROM cities")
     LiveData<List<CityEntity>> getCities();
 
@@ -28,4 +23,7 @@ public interface CityDao {
 
     @Query("SELECT * FROM cities WHERE name = :cityId")
     LiveData<CityEntity> getCity(String cityId);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void save(CityEntity city);
 }

@@ -6,7 +6,7 @@ import com.xiiilab.weather.persistance.Repository;
 /**
  * Created by XIII-th on 27.08.2018
  */
-class RepositoryVm extends ViewModel implements IRepositoryAware {
+public class RepositoryVm extends ViewModel implements IRepositoryAware {
 
     private Repository mRepository;
 

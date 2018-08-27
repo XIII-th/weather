@@ -9,6 +9,8 @@
     <string name="temperature">Temperature:</string>
     <string name="city_size">City size:</string>
     <string name="city_name">City name</string>
+    <string name="action_save">Save</string>
+    <string name="name_must_be_not_empty">Name must be not empty</string>
 
 
     <!-- Seasons -->
